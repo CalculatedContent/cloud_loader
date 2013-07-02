@@ -6,18 +6,17 @@ require 'logger'
 require 'active_support/inflector'
 require 'active_support/core_ext'
 
-#  https://gist.github.com/bdunagan/1383301
-#  multi-threader versions
-#  https://github.com/SFEley/s3nuke/blob/original/s3nuke   4 years old
+# 
+# Provides iterators to access files on s3
+#  Iterates over a collection of files on the cloud / AWS S3
+#    Assumes files are gzipped, json format
+#    iterates over all lines in the file, parse the json
+#  
+#
 
-# access control issues
-#  http://blog.zerosum.org/2011/03/02/better-aws-access-control-with-iam-and-fog.html
-
-# warning # might have a max number of keys
-#  https://groups.google.com/forum/#!topic/ruby-fog/s0umkU0ZGjo
-
-#  see for the list all files
-# https://groups.google.com/forum/#!searchin/ruby-fog/ruby$20fog$20list$20all$20files$20/ruby-fog/dlhTY_M4mf8/E83v_5SjsMMJ
+# TODO:
+#  1. mock up and write tests
+#  2. add file uploader
 module CloudLoader
 
   LOGGER = Logger.new($stdout)
@@ -35,7 +34,6 @@ module CloudLoader
     end
     #
 
-    #TODO:  make memory efficient, stream from s3???
     #  see http://stackoverflow.com/questions/1361892/how-to-decompress-gzip-string-in-ruby
     def each(&block)
       # TODO:  switch if file zipped or not      
@@ -100,13 +98,18 @@ end
 
 # hack test .. works
 
-opts = { :bucket=>"cloud-crawler", :path=>"crawl-pages", :pattern=>/40UTC/  }
-loader = CloudLoader::Loader.new(opts)
-p loader.first.first.keys
-# for some reason, delimitters get replaced?
+# opts = { :bucket=>"cloud-crawler", :path=>"crawl-pages", :pattern=>/40UTC/  }
+# loader = CloudLoader::Loader.new(opts)
+# p loader.first.first.keys
+# 
+# loader.each do |chunk|
+  # chunk.each do |json|
+     # db << json.symbolize_keys
+  # end
+# end
+# # for some reason, delimitters get replaced?
 
 #  TODO  to finish
-# 1. figure out how to get file to load from s3
 # 2. test basic scripts by hand
 # 3. text mocks .. can i actually write and read n files
 # 4. write spec tests with mocks
@@ -129,3 +132,21 @@ p loader.first.first.keys
 # 12. sync with redis-caches to make fog-cache, fog-loader or cloud-cache, cloud-loader
 #  lets redis be ser/de-ser to/fro S3 storage
 #  TODO:  Create a ~/.fog file as follows:  instead , in addition to .s3cmd  ??
+
+# see also:  carrierwave, asset_pipeline
+
+
+
+#  https://gist.github.com/bdunagan/1383301
+#  multi-threader versions
+#  https://github.com/SFEley/s3nuke/blob/original/s3nuke   4 years old
+
+# access control issues
+#  http://blog.zerosum.org/2011/03/02/better-aws-access-control-with-iam-and-fog.html
+
+# warning # might have a max number of keys
+#  https://groups.google.com/forum/#!topic/ruby-fog/s0umkU0ZGjo
+
+#  see for the list all files
+# https://groups.google.com/forum/#!searchin/ruby-fog/ruby$20fog$20list$20all$20files$20/ruby-fog/dlhTY_M4mf8/E83v_5SjsMMJ
+
