@@ -1,6 +1,4 @@
-require 'redis'
-require 'redis-namespace'
-require 'redis-caches/version'
-require 'redis-caches/cache_name'
-require 'redis-caches/s3_cache'
+require 'cloud_loader'
+require 'cloud_loader/version'
+require 'cloud_loader/cloud_loader'
 
