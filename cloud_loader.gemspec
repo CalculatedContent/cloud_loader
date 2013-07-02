@@ -13,8 +13,6 @@ spec = Gem::Specification.new do |s|
   s.add_development_dependency "rake", ">=10.0.0"
   s.add_development_dependency "rspec", ">=2.12.0"
 
-
-
   s.files = %w[
     LICENSE.txt
     README.rdoc
