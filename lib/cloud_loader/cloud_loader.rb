@@ -51,21 +51,22 @@ module CloudLoader
   class Loader
     include Enumerable
 
-    attr_accessor :bucket, :path, :pattern, :credentials, :storage
-    def initialize(opts = {})
-      @opts = opts
-
-      creds = { :provider => 'AWS',
+    DEFAULT_CREDENTIALS = { :provider => 'AWS',
         :aws_access_key_id => ENV['AWS_ACCESS_KEY_ID'],
         :aws_secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'],
         :region => ENV['EC2_REGION'] }
 
+    attr_accessor :bucket, :path, :pattern, :credentials, :storage
+    def initialize(opts = {})
+      @opts = opts
+
+     
       @bucket = opts[:bucket]
       @path = opts[:path]
       @pattern = opts[:pattern]
 
-      @credentials = creds
-    #  @credentials.reverse_merge! opts[:credentials].symbolize_keys if opts[:credentials]
+      @credentials = DEFAULT_CREDENTIALS
+      @credentials.reverse_merge! opts[:credentials].symbolize_keys if opts[:credentials]
       @storage = Fog::Storage.new(credentials)
     end
 
