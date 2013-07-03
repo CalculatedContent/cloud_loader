@@ -89,7 +89,7 @@ module CloudLoader
         truncated = @storage.get_bucket(bucket, :prefix => path, :delimiter=>'/', :marker => last_file_key).body['IsTruncated']
 
         files.each do |file|
-          next if pattern and not file.key =~ pattern
+          next if pattern and not file.key =~ /#{pattern}/
           last_file_key = file.key
           yield Chunk.new(file,@storage)
         end
