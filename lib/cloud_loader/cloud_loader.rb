@@ -64,7 +64,7 @@ module CloudLoader
       @bucket = opts[:bucket]
       @path = opts[:path]
       @pattern = opts[:pattern]
-      @pattern = /#{@pattern}/ if @pattern.is_a? String
+     # @pattern = /#{@pattern}/ if @pattern.is_a? String  jsut assume it is a string
 
       # broken for some reasion? need to test better
       # @credentials = DEFAULT_CREDENTIALS
