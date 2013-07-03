@@ -66,8 +66,11 @@ module CloudLoader
       @pattern = opts[:pattern]
       @pattern = /#{@pattern}/ if @pattern.is_a? String
 
-      @credentials = DEFAULT_CREDENTIALS
-      @credentials.reverse_merge! opts[:credentials].symbolize_keys if opts[:credentials]
+      # broken for some reasion? need to test better
+      # @credentials = DEFAULT_CREDENTIALS
+      # @credentials.reverse_merge! opts[:credentials].symbolize_keys if opts[:credentials]
+      
+       @credentials=  opts[:credentials].symbolize_keys 
       @storage = Fog::Storage.new(credentials)
     end
 
