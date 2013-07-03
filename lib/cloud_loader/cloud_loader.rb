@@ -65,7 +65,7 @@ module CloudLoader
       @pattern = opts[:pattern]
 
       @credentials = creds
-      @credentials.reverse_merge! opts[:credentials].symbolize_keys if opts[:credentials]
+    #  @credentials.reverse_merge! opts[:credentials].symbolize_keys if opts[:credentials]
       @storage = Fog::Storage.new(credentials)
     end
 
