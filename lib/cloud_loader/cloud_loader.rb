@@ -64,6 +64,7 @@ module CloudLoader
       @bucket = opts[:bucket]
       @path = opts[:path]
       @pattern = opts[:pattern]
+      @pattern = /#{@pattern}/ if @pattern.is_a? String
 
       @credentials = DEFAULT_CREDENTIALS
       @credentials.reverse_merge! opts[:credentials].symbolize_keys if opts[:credentials]
@@ -96,13 +97,19 @@ module CloudLoader
   end
 
 end
-
-# hack test .. works
-
-# opts = { :bucket=>"cloud-crawler", :path=>"crawl-pages", :pattern=>/40UTC/  }
+# 
+# # hack test .. works
+# require 'trollop'
+# opts = Trollop::options do
+  # opt :bucket, "bucket", :short => "-b", :default => "cloud-crawler"
+  # opt :path, "path on bucket", :short => "-p",  :default => "crawl-pages"
+  # opt :pattern, "file patterns", :short => "-f", :default => "40UTC" #, :multi => true
+# end
+# 
+# #opts = { :bucket=>"cloud-crawler", :path=>"crawl-pages", :pattern=>/40UTC/  }
 # loader = CloudLoader::Loader.new(opts)
 # p loader.first.first.keys
-# 
+# # 
 # loader.each do |chunk|
   # chunk.each do |json|
      # db << json.symbolize_keys
