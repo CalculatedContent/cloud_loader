@@ -18,8 +18,10 @@ require 'active_support/core_ext'
 #  1. mock up and write tests
 #  2. add file uploader
 module CloudLoader
-
+  
+  DEFAULT_DB = "datadb"
   LOGGER = Logger.new($stdout)
+  
   class Chunk
     include Enumerable
 
@@ -121,6 +123,7 @@ end
 # # for some reason, delimitters get replaced?
 
 #  TODO  to finish
+# 1.  -v --verbnose  -t --test  options
 # 2. test basic scripts by hand
 # 3. text mocks .. can i actually write and read n files
 # 4. write spec tests with mocks
